@@ -38,7 +38,7 @@ module.exports = {
     async registerAdmin(req, res) {
         try {
           const password = await encryptPassword(req.body.password);
-          const { name, email, phone, role } = req.body;
+          const { name, email, role } = req.body;
     
           // check email and password is not empty
           if (!email || !password) {
@@ -72,7 +72,6 @@ module.exports = {
             name: name,
             password: password,
             email: email,
-            phone: phone,
             image_profile:
               "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
             role: role,

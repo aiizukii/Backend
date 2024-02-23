@@ -203,6 +203,6 @@ router.post("/api/v1/loginadmin", loginAdmin);
 router.get("/api/v1/admins", getAllAdminData);
 
 // Get User ById
-router.get("/api/v1/users/:id", getAdminById);
+router.get("/api/v1/admins/:id", getAdminById);
 
 module.exports = router;
