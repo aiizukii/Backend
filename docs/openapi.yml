@@ -1258,7 +1258,7 @@ paths:
                     type: string
                     example: Email already Exist
       deprecated: false
-  /login:
+  /loginadmin:
     post:
       tags:
         - Admins
