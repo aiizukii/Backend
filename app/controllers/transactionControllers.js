@@ -9,7 +9,7 @@ const { v4: uuid } = require("uuid");
 module.exports = {
   async getAllTransactionData(req, res) {
     try {
-      const idUser = req.user.id; // Mengambil ID pengguna dari token
+      // const idUser = req.user.id; // Mengambil ID pengguna dari token
       const checkoutData = await Checkout.findAll({
         where: {
           usersId: idUser, // Menggunakan ID pengguna dalam kondisi WHERE
