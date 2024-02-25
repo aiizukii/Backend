@@ -63,7 +63,7 @@ const formattedCheckoutData = checkoutData
       updatedAt: checkout.updatedAt,
       Product: checkout.Product,
       total_price: totalPrice,
-      Alamats: checkout.alamatdata,
+      Alamats: checkout.Alamats,
     };
   });
 
