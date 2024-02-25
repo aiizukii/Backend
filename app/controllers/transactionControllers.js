@@ -14,59 +14,70 @@ module.exports = {
             {
               model: Alamat,
             },
-            {
-              model: Product,
-              as: "Product",
-              where: {
-                id: { [Op.col]: "Checkout.productId" },
-              },
+  
+          {
+            model: Product,
+            as: "Product",
+            where: {
+              id: { [Op.col]: "Checkout.productId" },
             },
-          ],
+            required: false,
+          },
+        ],
+        order: [["createdAt", "DESC"]], // Menambahkan pengurutan berdasarkan createdAt secara menurun (data terbaru)
+      });
+
+      if (checkoutData.length === 0) {
+        // jika transaksi tidak ada
+        res.status(404).json({
+          message: "No transaction data found",
+          data: [],
         });
-  
-        if (checkoutData.length === 0) {
-          // jika transaction tidak ada
-          res.status(404).json({
-            message: "No Checkout data found",
-            data: [],
-          });
-          return;
-        }
-  
-        const formattedCheckoutData = checkoutData.map((checkout) => {
-          const productPrice = checkout.Product
-            ? checkout.Product.price
-            : 0;
-          const totalBarang = checkout.total_barang;
-          const totalOngkir = checkout.hargaOngkir;
-          const totalPrice =
-            (productPrice * totalBarang) + totalOngkir;
-  
-          return {
-            id: checkout.id,
-            usersId: checkout.usersId,
-            productId: checkout.productId,
-            total_barang: checkout.total_barang,
-            createdAt: checkout.createdAt,
-            updatedAt: checkout.updatedAt,
-            Product: checkout.Product,
-            hargaOngkir: checkout.hargaOngkir,
-            total_price: totalPrice,
-            alamat: checkout.Alamat,
-          };
-        });
-  
-        res.status(200).json({
-          status: "Success",
-          message: "Checkout data retrieved successfully",
-          data: formattedCheckoutData,
-        });
-      } catch (error) {
-        console.log(error);
-        res.status(500).json({
-          message: error,
-        });
+        return;
       }
+ // Sorting function
+ function sortByTypeCluster2First(a, b) {
+  if (a.Product && a.Product.typebarang === "cluster_2" && (!b.Product || b.Product.typebarang !== "cluster_2")) {
+    return -1;
+  } else if ((!a.Product || a.Product.typebarang !== "cluster_2") && b.Product && b.Product.typebarang === "cluster_2") {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+const formattedCheckoutData = checkoutData
+  .sort(sortByTypeCluster2First)
+  .map((checkout) => {
+    const productPrice = checkout.Product ? checkout.Product.price : 0;
+    const totalBarang = checkout.total_barang;
+    const totalOngkir = checkout.hargaOngkir;
+    const totalPrice = (productPrice * totalBarang) + totalOngkir;
+
+    return {
+      id: checkout.id,
+      usersId: checkout.usersId,
+      productId: checkout.productId,
+      total_barang: checkout.total_barang,
+      createdAt: checkout.createdAt,
+      updatedAt: checkout.updatedAt,
+      Product: checkout.Product,
+      total_price: totalPrice,
+      Alamat: checkout.Alamat,
+    };
+  });
+
+    res.status(200).json({
+      status: "Success",
+      message: "Transaction data successfully obtained",
+      data: formattedCheckoutData,
+    });
+    } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: error,
+    });
+    }
     },
   async getDataTransactionById(req, res) {
     try {
