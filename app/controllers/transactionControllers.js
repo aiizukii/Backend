@@ -8,13 +8,12 @@ const { v4: uuid } = require("uuid");
 
 module.exports = {
   async getAllTransactionData(req, res) {
-      try {
-        const checkoutData = await Checkout.findAll({
-          include: [
-            {
-              model: Alamat,
-            },
-  
+    try {
+      const checkoutData = await Checkout.findAll({
+        include: [
+          {
+            model: Alamat,
+          },
           {
             model: Product,
             as: "Product",
