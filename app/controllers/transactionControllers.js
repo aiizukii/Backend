@@ -13,7 +13,7 @@ module.exports = {
         include: [
           {
             model: Alamat,
-            as: 'Alamat',
+            as: 'Alamats',
           },
           {
             model: Product,
@@ -63,7 +63,7 @@ const formattedCheckoutData = checkoutData
       updatedAt: checkout.updatedAt,
       Product: checkout.Product,
       total_price: totalPrice,
-      Alamat: checkout.alamatdata,
+      Alamats: checkout.alamatdata,
     };
   });
 
