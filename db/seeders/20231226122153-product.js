@@ -84,7 +84,7 @@ module.exports = {
           id: uuid(),
           kodebarang: "02.00.000.00.007",
           namabarang: "RICE STRANSPLANTER MAXXI PF-48",
-          image: "https://i.ibb.co/hyw6g4q/Rice-Transplanter-MAXXI-PF-48.png",
+          image: "https://i.ibb.co/6FdtsDT/Untitled-design-13.png",
           image2: "",
           image3: "",
           typebarang: "cluster_1",
