@@ -13,6 +13,7 @@ module.exports = {
         include: [
           {
             model: Alamat,
+            as: 'Alamat',
           },
           {
             model: Product,
