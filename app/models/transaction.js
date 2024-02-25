@@ -28,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       usersId: DataTypes.UUID,
       productsId: DataTypes.UUID,
-      alamatId: DataTypes.UUID,
       checkoutsId: DataTypes.UUID,
       amounts: DataTypes.INTEGER,
       date: DataTypes.DATEONLY,

@@ -21,12 +21,6 @@ module.exports = {
         allowNull: true,
         primaryKey: true,
       },
-      alamatId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
-        allowNull: true,
-        primaryKey: true,
-      },
       total_barang: {
         type: Sequelize.INTEGER,
       },

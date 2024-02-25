@@ -17,11 +17,6 @@ module.exports = {
         include: [
           {
             model: Alamat,
-            as: "Alamat",
-            where: {
-              id: { [Op.col]: "checkoutsId" },
-            },
-            required: false
           },
           {
             model: Product,
@@ -71,7 +66,6 @@ const formattedCheckoutData = checkoutData
       updatedAt: checkout.updatedAt,
       Product: checkout.Product,
       total_price: totalPrice,
-      alamatId: checkout.alamatId,
       Alamat: checkout.Alamat,
     };
   });

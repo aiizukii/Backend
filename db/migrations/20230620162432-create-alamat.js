@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       kodepos: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       alamatLengkap: {
         type: Sequelize.STRING,
