@@ -19,7 +19,7 @@ module.exports = {
             model: Alamat,
             as: "Alamat",
             where: {
-              id: { [Op.col]: "Checkout.id" },
+              id: { [Op.col]: "Checkout.alamatId" },
             },
             required: false
           },
