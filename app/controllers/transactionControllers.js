@@ -17,6 +17,11 @@ module.exports = {
         include: [
           {
             model: Alamat,
+            as: "Alamat",
+            where: {
+              id: { [Op.col]: "Checkout.id" },
+            },
+            required: false
           },
           {
             model: Product,
