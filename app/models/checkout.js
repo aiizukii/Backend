@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       usersId: DataTypes.UUID,
       productId: DataTypes.UUID,
+      alamatId: DataTypes.UUID,
       total_barang: DataTypes.INTEGER,
       hargaOngkir: DataTypes.INTEGER,
       total_price: {
