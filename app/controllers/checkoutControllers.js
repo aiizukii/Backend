@@ -58,7 +58,7 @@ module.exports = {
           email: alamatData.email,
           phone: alamatData.phone,
           provinsi: alamatData.provinsi,
-          kodepos: alamatData.Kodepos,
+          kodepos: alamatData.kodepos,
           alamatLengkap: alamatData.alamatLengkap,
         });
       }
