@@ -24,11 +24,21 @@ module.exports = (sequelize, DataTypes) => {
   Transaction.init(
     {
       usersId: DataTypes.UUID,
-      productsId: DataTypes.UUID,
-      checkoutsId: DataTypes.UUID,
-      amounts: DataTypes.INTEGER,
-      date: DataTypes.DATEONLY,
-      status: DataTypes.STRING,
+      productId: DataTypes.UUID,
+      total_barang: DataTypes.INTEGER,
+      hargaOngkir: DataTypes.INTEGER,
+      total_price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        get() {
+          const productsCount = this.getDataValue("total_barang");
+          const productPrice = this.Product
+            ? this.Product.getDataValue("price")
+            : 0;
+          return productsCount * productPrice;
+        },
+      },
     },
     {
       sequelize,
