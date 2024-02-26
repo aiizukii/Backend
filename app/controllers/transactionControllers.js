@@ -35,19 +35,33 @@ module.exports = {
         });
         return;
       }
- // Sorting function
- function sortByTypeCluster2First(a, b) {
-  if (a.Product && a.Product.typebarang === "cluster_2" && (!b.Product || b.Product.typebarang !== "cluster_2")) {
-    return -1;
-  } else if ((!a.Product || a.Product.typebarang !== "cluster_2") && b.Product && b.Product.typebarang === "cluster_2") {
-    return 1;
-  } else {
-    return 0;
-  }
-}
+//  // Sorting function
+//  function sortByTypeCluster2First(a, b) {
+//   if (a.Product && a.Product.typebarang === "cluster_2" && (!b.Product || b.Product.typebarang !== "cluster_2")) {
+//     return -1;
+//   } else if ((!a.Product || a.Product.typebarang !== "cluster_2") && b.Product && b.Product.typebarang === "cluster_2") {
+//     return 1;
+//   } else {
+//     return 0;
+//   }
+// }
 
-const formattedCheckoutData = checkoutData
-  .sort(sortByTypeCluster2First)
+    // Sorting function
+    function sortByTypeCluster(a, b) {
+      const typeOrder = {
+        "cluster_2": 0,
+        "cluster_0": 1,
+        "cluster_1": 2
+      };
+
+      const typeA = a.Product ? a.Product.typebarang : "";
+      const typeB = b.Product ? b.Product.typebarang : "";
+
+      return typeOrder[typeA] - typeOrder[typeB];
+    }
+
+    const formattedCheckoutData = checkoutData
+  .sort(sortByTypeCluster)
   .map((checkout) => {
     const productPrice = checkout.Product ? checkout.Product.price : 0;
     const totalBarang = checkout.total_barang;
