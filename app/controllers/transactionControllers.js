@@ -68,25 +68,23 @@ module.exports = {
     const totalOngkir = checkout.hargaOngkir;
     const totalPrice = (productPrice * totalBarang) + totalOngkir;
 
-            // Memasukkan data produk ke dalam array
-            const productsArray = [];
-            checkout.Product.forEach(product => {
-              productsArray.push({
-                id: product.id,
-                kodebarang: product.kodebarang,
-                namabarang: product.namabarang,
-                image: product.image,
-                image2: product.image2,
-                image3: product.image3,
-                typebarang: product.typebarang,
-                deskripsibarang: product.deskripsibarang,
-                stockbarang: product.stockbarang,
-                satuanbarang: product.satuanbarang,
-                price: product.price,
-                createdAt: product.createdAt,
-                updatedAt: product.updatedAt
-              });
-            });
+    const productsArray = checkout.Product.map((product) => {
+      return {
+        id: product.id,
+        kodebarang: product.kodebarang,
+        namabarang: product.namabarang,
+        image: product.image,
+        image2: product.image2,
+        image3: product.image3,
+        typebarang: product.typebarang,
+        deskripsibarang: product.deskripsibarang,
+        stockbarang: product.stockbarang,
+        satuanbarang: product.satuanbarang,
+        price: product.price,
+        createdAt: product.createdAt,
+        updatedAt: product.updatedAt,
+      };
+    });
 
     return {
       id: checkout.id,
@@ -95,7 +93,7 @@ module.exports = {
       total_barang: checkout.total_barang,
       createdAt: checkout.createdAt,
       updatedAt: checkout.updatedAt,
-      Product: checkout.Product,
+      Product: productsArray,
       total_price: totalPrice,
       Alamats: checkout.Alamats,
     };
