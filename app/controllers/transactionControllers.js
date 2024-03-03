@@ -35,6 +35,7 @@ module.exports = {
         });
         return;
       }
+      
 //  // Sorting function
 //  function sortByTypeCluster2First(a, b) {
 //   if (a.Product && a.Product.typebarang === "cluster_2" && (!b.Product || b.Product.typebarang !== "cluster_2")) {
@@ -74,7 +75,7 @@ module.exports = {
       productId: checkout.productId,
       total_barang: checkout.total_barang,
       createdAt: checkout.createdAt,
-      updatedAt: checkout.updatedAt,
+      updatedAt: [checkout.updatedAt],
       Product: checkout.Product,
       total_price: totalPrice,
       Alamats: checkout.Alamats,
