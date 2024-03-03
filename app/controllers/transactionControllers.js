@@ -75,7 +75,7 @@ module.exports = {
       productId: checkout.productId,
       total_barang: checkout.total_barang,
       createdAt: checkout.createdAt,
-      updatedAt: [checkout.updatedAt],
+      updatedAt: checkout.Product ? [checkout.Product] : [],
       Product: checkout.Product,
       total_price: totalPrice,
       Alamats: checkout.Alamats,
