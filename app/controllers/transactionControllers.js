@@ -18,9 +18,9 @@ module.exports = {
           {
             model: Product,
             as: "Product",
-            where: {
-              id: { [Op.col]: "Checkout.productId" },
-            },
+            // where: {
+            //   id: { [Op.col]: "Checkout.productId" },
+            // },
             required: false,
           },
         ],
@@ -68,24 +68,6 @@ module.exports = {
     const totalOngkir = checkout.hargaOngkir;
     const totalPrice = (productPrice * totalBarang) + totalOngkir;
 
-    const productsArray = checkout.Product.map((product) => {
-      return {
-        id: product.id,
-        kodebarang: product.kodebarang,
-        namabarang: product.namabarang,
-        image: product.image,
-        image2: product.image2,
-        image3: product.image3,
-        typebarang: product.typebarang,
-        deskripsibarang: product.deskripsibarang,
-        stockbarang: product.stockbarang,
-        satuanbarang: product.satuanbarang,
-        price: product.price,
-        createdAt: product.createdAt,
-        updatedAt: product.updatedAt,
-      };
-    });
-
     return {
       id: checkout.id,
       usersId: checkout.usersId,
@@ -93,7 +75,7 @@ module.exports = {
       total_barang: checkout.total_barang,
       createdAt: checkout.createdAt,
       updatedAt: checkout.updatedAt,
-      Product: productsArray,
+      Product: checkout.Product,
       total_price: totalPrice,
       Alamats: checkout.Alamats,
     };
