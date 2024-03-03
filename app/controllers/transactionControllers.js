@@ -18,10 +18,10 @@ module.exports = {
           {
             model: Product,
             as: "Product",
-            // where: {
-            //   id: { [Op.col]: "Checkout.productId" },
-            // },
-            // required: false,
+            where: {
+              id: { [Op.col]: "Checkout.productId" },
+            },
+            required: false,
           },
         ],
         order: [["createdAt", "DESC"]], // Menambahkan pengurutan berdasarkan createdAt secara menurun (data terbaru)
