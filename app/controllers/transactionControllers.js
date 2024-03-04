@@ -129,42 +129,24 @@ module.exports = {
           message: "Data not found",
         });
       }
+      const formattedCheckoutData = dataCheckoutId.map((checkout) => {
+        const productPrice = checkout.Product ? checkout.Product.price : 0;
+        const totalBarang = checkout.total_barang;
+        const totalOngkir = checkout.hargaOngkir;
+        const totalPrice = (productPrice * totalBarang) + totalOngkir;
 
-// Sorting function
-function sortByTypeCluster(a, b) {
-  const typeOrder = {
-    "cluster_2": 0,
-    "cluster_0": 1,
-    "cluster_1": 2
-  };
-
-  const typeA = a.Product ? a.Product.typebarang : "";
-  const typeB = b.Product ? b.Product.typebarang : "";
-
-  return typeOrder[typeA] - typeOrder[typeB];
-}
-
-const formattedCheckoutData = dataCheckoutId
-.sort(sortByTypeCluster)
-.map((checkout) => {
-const productPrice = checkout.Product ? checkout.Product.price : 0;
-const totalBarang = checkout.total_barang;
-const totalOngkir = checkout.hargaOngkir;
-const totalPrice = (productPrice * totalBarang) + totalOngkir;
-
-return {
-  id: checkout.id,
-  usersId: checkout.usersId,
-  productId: checkout.productId,
-  total_barang: checkout.total_barang,
-  createdAt: checkout.createdAt,
-  updatedAt: checkout.updatedAt,
-  Product: checkout.Product ? [checkout.Product] : [],
-  total_price: totalPrice,
-  Alamats: checkout.Alamats,
-};
-});
-
+          return {
+      id: checkout.id,
+      usersId: checkout.usersId,
+      productId: checkout.productId,
+      total_barang: checkout.total_barang,
+      createdAt: checkout.createdAt,
+      updatedAt: checkout.updatedAt,
+      Product: checkout.Product ? [checkout.Product] : [],
+      total_price: totalPrice,
+      Alamats: checkout.Alamats,
+    };
+  });
       res.status(200).json({
         status: "Success",
         message: "Get Data Checkout Successfully",
