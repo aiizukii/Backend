@@ -105,7 +105,22 @@ module.exports = {
         });
       };
 
-      const dataCheckoutId = await findCheckoutId();
+      const dataCheckoutId = await findCheckoutId({
+                where: {
+          idCheckout,
+        },
+        include: [
+          {
+            model: Product,
+            as: "products",
+          },
+          {
+            model: Checkout,
+            as: "checkouts",
+          },
+        ],
+      });
+ 
 
       if (!dataCheckoutId) {
         res.status(404).json({
