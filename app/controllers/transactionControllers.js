@@ -108,12 +108,9 @@ module.exports = {
             },
             {
               model: Product,
-              as: 'products',
+              as: 'Product',
             },
-            {
-              model: Checkout,
-              as: 'checkouts',
-            },
+
           ],
         });
       
