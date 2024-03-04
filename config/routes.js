@@ -156,6 +156,9 @@ router.delete("/api/v1/checkout/:id", deleteCheckout);
 // Get All Data Transaction
 router.get("/api/v1/transaction", getAllTransactionData);
 
+// Get All Data Transaction
+router.get("/api/v1/transaction/:id", getDataTransactionById);
+
 // Delete All Data Transaction
 router.delete("/api/v1/checkout", deleteAllDataCheckout);
 

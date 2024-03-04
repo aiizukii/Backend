@@ -94,6 +94,7 @@ module.exports = {
     });
     }
     },
+    
   async getDataTransactionById(req, res) {
     try {
       const usersId = req.user.id; // Menggunakan ID pengguna saat ini
