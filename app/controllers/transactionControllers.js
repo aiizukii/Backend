@@ -97,34 +97,61 @@ module.exports = {
     
   async getDataTransactionById(req, res) {
     try {
-      const checkoutId = req.checkout.id; // Menggunakan ID pengguna saat ini
 
-      const transactions = await Transaction.findAll({
-        where: {
-          checkoutId,
-        },
-        include: [
-          {
-            model: Product,
-            as: "products",
-          },
-          {
-            model: Checkout,
-            as: "checkouts",
-          },
-        ],
-      });
+      const idCheckout = req.params.id;
+      const findCheckoutId = () => {
+        return Checkout.findOne({
+          where: { id: idCheckout },
+        });
+      };
 
+      const dataCheckoutId = await findCheckoutId();
+
+      if (!dataCheckoutId) {
+        res.status(404).json({
+          status: "Failed",
+          message: "Data not found",
+        });
+      }
       res.status(200).json({
-        data: transactions,
+        status: "Success",
+        message: "Get Data Checkout Successfully",
+        data: dataCheckoutId,
       });
     } catch (error) {
-      console.error(error);
       res.status(500).json({
-        message: "Internal server error",
+        status: "Error",
+        message: error.message,
       });
     }
   },
+
+  //     const transactions = await Transaction.findAll({
+  //       where: {
+  //         checkoutId,
+  //       },
+  //       include: [
+  //         {
+  //           model: Product,
+  //           as: "products",
+  //         },
+  //         {
+  //           model: Checkout,
+  //           as: "checkouts",
+  //         },
+  //       ],
+  //     });
+
+  //     res.status(200).json({
+  //       data: transactions,
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({
+  //       message: "Internal server error",
+  //     });
+  //   }
+  // },
 
   async getAllTransactionDataAdmin(req, res) {
     try {
