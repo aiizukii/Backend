@@ -97,68 +97,62 @@ module.exports = {
     
   async getDataTransactionById(req, res) {
     try {
-
-      const idCheckout = req.params.id;
-      const findCheckoutId = () => {
-        return Checkout.findOne({
+        const idCheckout = req.params.id;
+      
+        const dataCheckout = await Checkout.findOne({
           where: { id: idCheckout },
+          include: [
+            {
+              model: Alamat,
+              as: 'Alamats',
+            },
+            {
+              model: Product,
+              as: 'products',
+            },
+            {
+              model: Checkout,
+              as: 'checkouts',
+            },
+          ],
         });
-      };
-
-      const dataCheckoutId = await findCheckoutId({
-        include: [
-          {
-            model: Alamat,
-            as: 'Alamats',
-          },
-          {
-            model: Product,
-            as: "products",
-          },
-          {
-            model: Checkout,
-            as: "checkouts",
-          },
-        ],
-      });
- 
-
-      if (!dataCheckoutId) {
-        res.status(404).json({
-          status: "Failed",
-          message: "Data not found",
+      
+        if (!dataCheckout) {
+          return res.status(404).json({
+            status: 'Failed',
+            message: 'Data not found',
+          });
+        }
+      
+        const productPrice = dataCheckout.Product ? dataCheckout.Product.price : 0;
+        const totalBarang = dataCheckout.total_barang;
+        const totalOngkir = dataCheckout.hargaOngkir;
+        const totalPrice = productPrice * totalBarang + totalOngkir;
+      
+        const formattedCheckoutData = {
+          id: dataCheckout.id,
+          usersId: dataCheckout.usersId,
+          productId: dataCheckout.productId,
+          total_barang: dataCheckout.total_barang,
+          createdAt: dataCheckout.createdAt,
+          updatedAt: dataCheckout.updatedAt,
+          Product: dataCheckout.Product ? [dataCheckout.Product] : [],
+          total_price: totalPrice,
+          Alamats: dataCheckout.Alamats,
+        };
+      
+        res.status(200).json({
+          status: "Success",
+          message: "Transaction data successfully obtained",
+          data: formattedCheckoutData,
         });
-      }
-      const formattedCheckoutData = dataCheckoutId.map((checkout) => {
-        const productPrice = checkout.Product ? checkout.Product.price : 0;
-        const totalBarang = checkout.total_barang;
-        const totalOngkir = checkout.hargaOngkir;
-        const totalPrice = (productPrice * totalBarang) + totalOngkir;
-
-          return {
-      id: checkout.id,
-      usersId: checkout.usersId,
-      productId: checkout.productId,
-      total_barang: checkout.total_barang,
-      createdAt: checkout.createdAt,
-      updatedAt: checkout.updatedAt,
-      Product: checkout.Product ? [checkout.Product] : [],
-      total_price: totalPrice,
-      Alamats: checkout.Alamats,
-    };
-  });
-      res.status(200).json({
-        status: "Success",
-        message: "Get Data Checkout Successfully",
-        data: formattedCheckoutData,
-      });
-    } catch (error) {
-      res.status(500).json({
-        status: "Error",
-        message: error.message,
-      });
-    }
-  }, 
+        } catch (error) {
+        console.log(error);
+        res.status(500).json({
+          message: error,
+        });
+        }
+        },
 
   async getAllTransactionDataAdmin(req, res) {
     try {
